@@ -143,7 +143,7 @@ export function createSession() {
           }
         }
       )
-      .subscribe(async (status) => {
+      .subscribe(async (status: string) => {
         if (status === 'SUBSCRIBED') {
           updatePresence();
         }
