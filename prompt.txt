@@ -1,0 +1,24 @@
+You are being asked to build the frontend for a new client portal called CLIENT_NAME.
+Context & Setup
+A new project folder CLIENT_NAME has already been scaffolded by copying an existing production app that implements a similar flow. The public assets (logo, favicon, etc.) have already been updated for CLIENT_NAME. Your job is to adapt the UI so it correctly implements this client's specific workflow and branding.
+Two reference files have been placed in the project for you:
+
+vendor-sdk.ts — the SDK you must use for all session/state management. Read it thoroughly to understand the available methods and events before writing any integration code.
+CLIENT_NAME-schema.json — the workflow schema for this client. It defines the states, transitions, components to build, and error messages. Treat this as the source of truth for application behavior.
+
+
+Your Tasks
+
+Audit the existing codebase. Understand the structure of the copied app — its routing, component architecture, styling approach, and how it currently integrates with the SDK. You will be refactoring it, not rewriting from scratch.
+Implement the workflow exactly as defined in the schema. Build each component listed under components_to_build. The schema tells you the component names, their roles (initial, intermediate, final), and the error strings each one may receive — use all of this.
+Wire up the SDK. Use vendor-sdk.ts as the integration layer. Refer to the sdk_integration section of the schema for the intended usage flow. The SDK drives all state transitions — your UI should react to it, not manage state independently.
+Handle errors correctly. Each state has predefined_errors in the schema. Your components must be able to display any error string passed to them — both the predefined ones and arbitrary custom strings from the operator — without hardcoding assumptions.
+Match the CLIENT_NAME brand. The site has a production website. Look it up and extract its color palette, typography, and overall visual language. Apply that consistently across the header, footer, and all workflow screens. Everything should feel like it belongs to CLIENT_NAME — not the previous client this app was copied from.
+Consistency & polish. Ensure spacing, alignment, and component styling are coherent across all screens. The flow should feel like a single unified product.
+
+
+What you should NOT do
+
+Do not invent or hardcode credentials, Supabase URLs, or API keys — leave those as clearly named placeholders/environment variables.
+Do not change the SDK file itself.
+Do not skip states or simplify the transition logic — implement the full graph as defined in the schema.

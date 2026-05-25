@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Bank of America | Log In | Online Banking</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style data-purpose="custom-branding">
+    /* Bank of America Brand Colors */
+    :root {
+      --boa-red: #dc1431;
+      --boa-blue: #0033a0;
+      --boa-light-gray: #f3f3f3;
+      --boa-dark-blue: #012169;
+    }
+    
+    .bg-boa-red { background-color: var(--boa-red); }
+    .text-boa-blue { color: var(--boa-blue); }
+    .text-boa-dark-blue { color: var(--boa-dark-blue); }
+    .border-boa-blue { border-color: var(--boa-blue); }
+    
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      color: #333;
+    }
+
+    input[type="text"], input[type="password"] {
+      border: 1px solid #ccc;
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<body class="bg-white">
+<!-- BEGIN: Top Disclaimer Bar -->
+<div class="bg-[#f0f0f0] text-[10px] text-gray-600 py-1 text-center border-b border-gray-300" data-purpose="top-disclaimer">
+<p>
+      Bank of America deposit products: 
+      <img alt="FDIC" class="inline-block h-3 align-middle mx-1" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWaSXzX55ChEKUT3eVmbO_sT2vFORWhA05vjLX3BrXObaLju5buZbMD7Vrd6AsnL9xHrMeWcp44cQ4MLJFdg6JJ0YHoFhM4CSbESUsfbrt1YiFkEOxN7aZIeA6kJNfyonRpzqbEbz_7MwEH59RCadk0XmpzNUbsGkj9WqxjRLJnsRO3jYHjn9n4oejxBQfnw4scb-2FUGZlg8Zef4_mxrJAjEeGEU3Tsp_DIm74X6MPnf1Ah7YUXZQs1nF-VILerRk6fjWWpwWIw"/> 
+      FDIC-Insured - Backed by the full faith and credit of the U.S. Government
+    </p>
+</div>
+<!-- END: Top Disclaimer Bar -->
+<!-- BEGIN: MainHeader -->
+<header class="px-4 py-4 flex justify-between items-center max-w-5xl mx-auto" data-purpose="main-header">
+<div class="flex items-center space-x-4">
+<!-- Provided Logo Replacement -->
+<img alt="Bank of America Logo" class="h-6 md:h-8" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaphEaWFB5W-RZP0EJ08oVh-eF5DO8PrxSTXKK6JtUbleaQAEeo4x2yPFYDWpt-3vS5uK5t6UvR1cYA2k4xgMaAhKC5BJQdxxUOG8VP8PAhJGqMp-cRoHDrUoL0bDt7n9ho2UBELpwUmE_y3sYJ0WXOnAfdrWtt4K1jXOhSvnNIy90cy_eHqTHkzUOFVgq8qbXXJWhDmXQVRcd5IE8oZwXXRpTDQG9aI2dRjwmTOwC19Jap_Ku5_-fzR8XU2PH9rZ9F0sKfO0bLQ"/>
+<span class="text-gray-500 text-xl font-light border-l border-gray-300 pl-4 hidden md:block">Log In</span>
+</div>
+<div class="flex items-center space-x-4 text-sm text-gray-700">
+<div class="flex items-center">
+<svg class="h-4 w-4 mr-1 text-gray-500" fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"></path>
+</svg>
+<span class="font-bold">Secure Area</span>
+</div>
+<span class="text-gray-300">|</span>
+<a class="text-boa-blue hover:underline" href="#">En español</a>
+</div>
+</header>
+<!-- END: MainHeader -->
+<!-- BEGIN: TitleBanner -->
+<section class="bg-boa-red text-white py-3 px-4 md:px-8" data-purpose="title-banner">
+<div class="max-w-5xl mx-auto">
+<h1 class="text-xl md:text-2xl font-normal">Log In to Online Banking</h1>
+</div>
+</section>
+<!-- END: TitleBanner -->
+<!-- BEGIN: MainContent -->
+<main class="max-w-5xl mx-auto px-4 md:px-8 py-8">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+<!-- BEGIN: LoginForm -->
+<div class="md:col-span-4 border-r-0 md:border-r border-gray-200 pr-0 md:pr-8" data-purpose="login-form-container">
+<form action="#" class="space-y-6" method="POST">
+<div class="space-y-2">
+<label class="block text-lg text-gray-700" for="user-id">User ID</label>
+<input class="w-full p-2 border border-gray-400 focus:ring-0 focus:border-boa-blue" id="user-id" name="user-id" required="" type="text"/>
+<div class="flex items-center space-x-2 text-sm text-gray-700 mt-2">
+<input class="rounded border-gray-400 text-boa-blue focus:ring-0" id="save-id" type="checkbox"/>
+<label for="save-id">Save this User ID</label>
+<button class="text-boa-blue" type="button">
+<svg class="h-4 w-4 inline" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+</div>
+</div>
+<div class="space-y-2">
+<label class="block text-lg text-gray-700" for="password">Password</label>
+<input class="w-full p-2 border border-gray-400 focus:ring-0 focus:border-boa-blue" id="password" name="password" required="" type="password"/>
+<div class="mt-2">
+<a class="text-boa-blue text-sm hover:underline" href="#">Forgot your Password?</a>
+</div>
+</div>
+<div class="pt-4">
+<button class="bg-boa-blue text-white px-6 py-2 rounded-sm font-bold flex items-center hover:bg-blue-900 transition-colors" type="submit">
+<svg class="h-4 w-4 mr-2" fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"></path>
+</svg>
+              Log In
+            </button>
+</div>
+</form>
+</div>
+<!-- END: LoginForm -->
+<!-- BEGIN: PromotionSection -->
+<div class="md:col-span-5 px-0 md:px-8 text-center md:text-left" data-purpose="app-promotion">
+<h2 class="text-xl text-gray-700 mb-6">Stay connected with our app</h2>
+<div class="flex flex-col md:flex-row items-center md:items-start space-y-4 md:space-y-0 md:space-x-4">
+<!-- Placeholder for Mobile App Image from Original Screenshot -->
+<img alt="Mobile App Promotion" class="w-48 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-flDBNvf1iPb0Xmx0X-nrvMXQ7QvOqDVzcUd4emgQOQF-Tr3ri8mZruR6-E4xKrKE0P7HacdkXMvbZqLOEoSEQsq5ppazdMPSbJ0JwbrOXdJpza3xOzrV7WTQIceiRQRyj_YqK8w2VLz06Sem4d2iblTB10DnX1yCIWZos7zZbcn15oysmaiO1mm_IZYeCBf7zi8QpRyIzYUjgwMlL_WSuafBAkXn50E2LHVxvrv_OdKPothKkvhHXQhz8VUpfKpgtRTLUOvQyA"/>
+<div class="flex flex-col justify-center space-y-4 max-w-xs">
+<p class="text-lg text-gray-600 leading-tight">Secure, convenient banking anytime</p>
+<a class="bg-boa-red text-white px-4 py-2 rounded-md font-bold text-center hover:opacity-90" href="#">Get the app</a>
+</div>
+</div>
+</div>
+<!-- END: PromotionSection -->
+<!-- BEGIN: HelpLinks -->
+<div class="md:col-span-3 space-y-8" data-purpose="help-links">
+<div class="space-y-4">
+<h3 class="text-lg text-gray-700 border-b border-gray-200 pb-1">Login help</h3>
+<ul class="space-y-3 text-sm text-boa-blue">
+<li><a class="hover:underline" href="#">Forgot ID/Password?</a></li>
+<li><a class="hover:underline" href="#">Problem logging in?</a></li>
+</ul>
+</div>
+<div class="space-y-4">
+<h3 class="text-lg text-gray-700 border-b border-gray-200 pb-1">Not using Online Banking?</h3>
+<ul class="space-y-3 text-sm text-boa-blue">
+<li><a class="hover:underline font-bold" href="#">Enroll now</a></li>
+<li><a class="hover:underline" href="#">Learn more about Online Banking</a></li>
+<li><a class="hover:underline" href="#">Service Agreement</a></li>
+</ul>
+</div>
+</div>
+<!-- END: HelpLinks -->
+</div>
+</main>
+<!-- END: MainContent -->
+<!-- BEGIN: Footer -->
+<footer class="bg-[#f2f0eb] mt-12 py-8 px-4 md:px-8 border-t border-gray-200" data-purpose="footer">
+<div class="max-w-5xl mx-auto">
+<div class="flex items-center text-sm font-bold text-gray-600 mb-6">
+<svg class="h-4 w-4 mr-2" fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"></path>
+</svg>
+        Secure area
+      </div>
+<div class="flex flex-wrap gap-x-4 gap-y-2 text-sm text-boa-blue mb-6">
+<a class="hover:underline" href="#">Privacy</a>
+<span class="text-gray-400">|</span>
+<a class="hover:underline" href="#">Security</a>
+<span class="text-gray-400">|</span>
+<a class="hover:underline flex items-center" href="#">
+          Your Privacy Choices 
+          <span class="ml-1 bg-boa-blue text-white text-[8px] px-1 rounded-sm leading-tight">✔ X</span>
+</a>
+</div>
+<div class="text-xs text-gray-600 space-y-2">
+<p class="flex items-center">
+          Bank of America, N.A. Member FDIC. 
+          <a class="ml-1 text-boa-blue hover:underline" href="#">Equal Housing Lender</a>
+<svg class="h-3 w-3 ml-1" fill="currentColor" viewbox="0 0 24 24">
+<path d="M12 3L4 9v12h16V9l-8-6zm0 2.2l6 4.5V19h-3v-5H9v5H6V9.7l6-4.5z"></path>
+</svg>
+</p>
+<p>© 2024 Bank of America Corporation.</p>
+</div>
+</div>
+</footer>
+<!-- END: Footer -->
+</body></html>

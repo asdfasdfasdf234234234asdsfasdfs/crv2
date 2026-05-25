@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cap-blue: #006797;
+  --color-cap-blue-hover: #004d71;
+}
+
+/* Capital One typography styling */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  color: #333333;
+}
+
+/* Capital One brand colors */
+.bg-cap-blue { background-color: var(--color-cap-blue); }
+.text-cap-blue { color: var(--color-cap-blue); }
+.border-cap-blue { border-color: var(--color-cap-blue); }
+.hover-bg-cap-blue:hover { background-color: var(--color-cap-blue-hover); }
+.focus\:ring-cap-blue:focus { --tw-ring-color: var(--color-cap-blue); }
+.focus\:border-cap-blue:focus { border-color: var(--color-cap-blue); }

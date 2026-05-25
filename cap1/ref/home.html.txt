@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Capital One - Sign In</title>
+<!-- Tailwind CSS v3 CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style data-purpose="typography">
+    /* Capital One typography styling */
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      color: #333333;
+    }
+  </style>
+<style data-purpose="custom-colors">
+    /* Capital One brand colors */
+    .bg-cap-blue { background-color: #006797; }
+    .text-cap-blue { color: #006797; }
+    .border-cap-blue { border-color: #006797; }
+    .hover-bg-cap-blue:hover { background-color: #004d71; }
+  </style>
+</head>
+<body class="bg-white min-h-screen flex flex-col">
+<!-- BEGIN: MainHeader -->
+<header class="w-full border-b border-gray-100 px-4 py-3 flex items-center justify-between" data-purpose="site-header">
+<div class="flex items-center">
+<!-- Capital One Logo Placeholder -->
+<div class="w-24 h-8 flex items-center justify-start">
+<svg class="h-full w-full" fill="#006797" viewbox="0 0 100 32">
+<path d="M12.5 5.5C5.6 5.5 0 11.1 0 18s5.6 12.5 12.5 12.5c2.4 0 4.6-.7 6.4-1.9L22 32h5.5l-3.5-4.5c2.4-2.5 3.9-5.8 3.9-9.5 0-6.9-5.6-12.5-12.5-12.5zm0 18.5c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6zM35.5 10v20.5H41V10h-5.5zM48 10v20.5h5.5V18.5c0-2.5 1.5-4 3.5-4s3.5 1.5 3.5 4v12h5.5V17.5c0-4.5-3-7.5-8-7.5-3.5 0-6 1.5-7.5 4V10H48zM76.5 10v2.5c-1.5-2.5-4-4-7.5-4-6 0-11 5-11 12s5 12 11 12c3.5 0 6-1.5 7.5-4v3.5h5.5V10h-5.5zm-3.5 14c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6z"></path>
+<path d="M25 5L85 0l15 5-20 2z" fill="#D22E1E"></path>
+</svg>
+</div>
+</div>
+<!-- Language Selector -->
+<div class="flex items-center space-x-2 text-sm text-gray-700" data-purpose="language-selector">
+<div class="flex items-center">
+<img alt="US Flag" class="w-5 h-4 object-cover mr-1" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0tQzsOErkuRmPTOBrGVkTdWSkovdawcGdv9RtUnydx6cRcH6Udq2ALUXKoyUMyKEbYO-jVs66Eq5FkIYMlEUY74MTEbSlExwwj2yD1a3W7NJojsiLTd8yk5gkt29imn-t82HEB5dpK9v_CnRdLD8XawctDimWtT16MxZg-pdaP4JAaNHihb471BUldd61c4IJtXu3zrVaY7Yaco0Hzujfu1U2B85sENcu0ecpO8ohFUJih0QXRMAHfMxQGwvdBKtHyTgfY_V6Ug"/>
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<div class="flex items-center cursor-pointer">
+<span>English</span>
+<svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+</div>
+</header>
+<!-- END: MainHeader -->
+<!-- BEGIN: MainContent -->
+<main class="flex-grow flex flex-col items-center px-4 pt-4 pb-12 w-full max-w-lg mx-auto" data-purpose="signin-container">
+<!-- Sign In Card -->
+<div class="w-full border border-gray-200 rounded-lg p-6 shadow-sm mb-8" data-purpose="signin-card">
+<!-- Card Logo -->
+<div class="flex justify-center mb-6">
+<div class="w-40 h-14">
+<svg class="h-full w-full" fill="#006797" viewbox="0 0 100 32">
+<path d="M12.5 5.5C5.6 5.5 0 11.1 0 18s5.6 12.5 12.5 12.5c2.4 0 4.6-.7 6.4-1.9L22 32h5.5l-3.5-4.5c2.4-2.5 3.9-5.8 3.9-9.5 0-6.9-5.6-12.5-12.5-12.5zm0 18.5c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6zM35.5 10v20.5H41V10h-5.5zM48 10v20.5h5.5V18.5c0-2.5 1.5-4 3.5-4s3.5 1.5 3.5 4v12h5.5V17.5c0-4.5-3-7.5-8-7.5-3.5 0-6 1.5-7.5 4V10H48zM76.5 10v2.5c-1.5-2.5-4-4-7.5-4-6 0-11 5-11 12s5 12 11 12c3.5 0 6-1.5 7.5-4v3.5h5.5V10h-5.5zm-3.5 14c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6z"></path>
+<path d="M25 5L85 0l15 5-20 2z" fill="#D22E1E"></path>
+</svg>
+</div>
+</div>
+<h1 class="text-2xl font-normal text-center mb-8">Sign In</h1>
+<form action="#" class="space-y-6" method="POST">
+<!-- Username Field -->
+<div data-purpose="input-group">
+<label class="block text-sm font-bold text-gray-700 mb-1" for="username">Username</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<svg class="h-6 w-6 text-gray-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+</div>
+<input class="block w-full pl-11 pr-3 py-3 border border-gray-400 rounded-md shadow-sm focus:ring-cap-blue focus:border-cap-blue text-lg" id="username" name="username" placeholder="" type="text"/>
+</div>
+</div>
+<!-- Password Field -->
+<div data-purpose="input-group">
+<label class="block text-sm font-bold text-gray-700 mb-1" for="password">Password</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<svg class="h-6 w-6 text-gray-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+</div>
+<input class="block w-full pl-11 pr-12 py-3 border border-gray-400 rounded-md shadow-sm focus:ring-cap-blue focus:border-cap-blue text-lg" id="password" name="password" placeholder="" type="password"/>
+<div class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer">
+<svg class="h-6 w-6 text-gray-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+</div>
+</div>
+</div>
+<!-- Remember Me -->
+<div class="flex items-center">
+<input class="h-6 w-6 text-cap-blue border-gray-400 rounded" id="remember_me" name="remember_me" type="checkbox"/>
+<label class="ml-3 block text-lg text-gray-900" for="remember_me">
+            Remember Me
+          </label>
+</div>
+<!-- Sign In Button -->
+<div class="pt-2">
+<button class="w-full flex justify-center py-4 px-4 border border-transparent rounded-md shadow-sm text-lg font-bold text-white bg-cap-blue hover-bg-cap-blue focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cap-blue" type="submit">
+            Sign in
+          </button>
+</div>
+</form>
+<!-- Passkey Section -->
+<div class="mt-8 border border-gray-200 rounded-lg p-4 flex flex-col items-start bg-white" data-purpose="passkey-promo">
+<h2 class="text-sm font-bold text-gray-900 mb-4">Go passwordless with a passkey</h2>
+<div class="flex items-start space-x-4">
+<div class="flex space-x-1 shrink-0 mt-1">
+<!-- Face ID/Fingerprint placeholder icons -->
+<svg class="w-8 h-8 text-cap-blue" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 10a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path><path d="M7 21v-4a1 1 0 011-1h8a1 1 0 011 1v4M12 3a9 9 0 00-9 9c0 .77.1 1.51.28 2.22m17.44 0c.18-.71.28-1.45.28-2.22a9 9 0 00-9-9z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+<svg class="w-8 h-8 text-cap-blue" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A10.003 10.003 0 0012 3m0 18a10.003 10.003 0 01-8.213-4.288m6.42-3.055A3.001 3.001 0 0012 9V7m0 2a2 2 0 100 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+</div>
+<div>
+<p class="text-sm text-gray-700 leading-relaxed">
+              No more having to remember a password. Use a passkey to sign in using your face or fingerprint.
+            </p>
+<a class="inline-block mt-3 text-cap-blue font-bold text-sm border-b-2 border-cap-blue pb-0.5" href="#">Create a passkey</a>
+</div>
+</div>
+</div>
+<!-- Helper Links -->
+<div class="mt-8 space-y-4">
+<a class="block text-cap-blue font-bold text-lg hover:underline" href="#">Forgot Username or Password?</a>
+<a class="block text-cap-blue font-bold text-lg hover:underline" href="#">Set Up Online Access</a>
+</div>
+</div>
+<!-- Additional Accounts Section -->
+<div class="w-full text-center px-6" data-purpose="secondary-options">
+<p class="text-lg text-gray-700 mb-4">Looking for these accounts?</p>
+<a class="text-cap-blue font-bold text-lg hover:underline" href="#">Commercial or Trade Credit</a>
+</div>
+</main>
+<!-- END: MainContent -->
+<!-- BEGIN: MainFooter -->
+<footer class="w-full border-t border-gray-100 bg-white px-6 py-8" data-purpose="site-footer">
+<div class="max-w-lg mx-auto">
+<ul class="space-y-4 mb-10 text-sm text-gray-600 font-medium">
+<li><a class="hover:underline" href="#">Contact us</a></li>
+<li><a class="hover:underline" href="#">Legal</a></li>
+<li><a class="hover:underline" href="#">Privacy</a></li>
+<li><a class="hover:underline" href="#">Security</a></li>
+<li><a class="hover:underline" href="#">Terms &amp; Conditions</a></li>
+<li><a class="hover:underline" href="#">Accessibility</a></li>
+</ul>
+<div class="flex items-center space-x-4 opacity-60">
+<div class="flex flex-col items-center">
+<span class="text-[10px] font-bold">Member</span>
+<span class="text-lg font-black leading-none">FDIC</span>
+</div>
+<div class="h-8 w-px bg-gray-300"></div>
+<div class="flex items-center">
+<svg class="w-8 h-8" fill="currentColor" viewbox="0 0 24 24">
+<path d="M12 2L2 12h3v8h14v-8h3L12 2zm0 14c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"></path>
+</svg>
+<div class="ml-1 flex flex-col">
+<span class="text-[8px] font-bold uppercase leading-tight">Equal Housing</span>
+<span class="text-[8px] font-bold uppercase leading-tight">Opportunity</span>
+</div>
+</div>
+</div>
+</div>
+</footer>
+<!-- END: MainFooter -->
+</body></html>
