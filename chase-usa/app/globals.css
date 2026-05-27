@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-chase-blue: #005eb8;
+  --color-chase-blue-text: #0b5cba;
+  --color-chase-blue-hover: #004a93;
+  --color-chase-error: #bf1722;
+  --color-chase-gray: #757575;
+  --color-chase-light-gray: #f4f4f4;
+  --color-chase-footer-bg: #f2f2f2;
+  --color-chase-text: #333333;
+  --color-chase-link: #005ebd;
+}
+
+/* Chase typography */
+body {
+  font-family: 'Open Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--color-chase-text);
+}
+
+/* ── Chase brand utilities ── */
+.bg-chase-blue { background-color: var(--color-chase-blue); }
+.text-chase-blue { color: var(--color-chase-blue-text); }
+.border-chase-blue { border-color: var(--color-chase-blue-text); }
+.hover\:bg-chase-blue-dark:hover { background-color: var(--color-chase-blue-hover); }
+.focus\:ring-chase-blue:focus { --tw-ring-color: var(--color-chase-blue-text); }
+.focus\:border-chase-blue:focus { border-color: var(--color-chase-blue-text); }
+
+/* ── Error styling ── */
+.error-text { color: var(--color-chase-error); }
+.error-border { border-color: var(--color-chase-error); }
+
+/* ── Background gradient overlay (for header over hero image) ── */
+.bg-overlay-gradient {
+  background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 30%);
+}
+
+/* ── Underline-style form inputs (Chase signature style) ── */
+.form-input-chase {
+  border: none;
+  border-bottom: 1px solid var(--color-chase-gray);
+  border-radius: 0;
+  padding-left: 0;
+  padding-right: 0;
+  box-shadow: none !important;
+  outline: none;
+  background: transparent;
+  width: 100%;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  font-size: 1rem;
+  color: var(--color-chase-text);
+  transition: border-color 0.2s ease;
+}
+
+.form-input-chase:focus {
+  border-bottom-color: var(--color-chase-blue-text);
+  border-bottom-width: 2px;
+  margin-bottom: -1px;
+}
+
+.form-input-chase.input-error {
+  border-bottom-color: var(--color-chase-error);
+}
+
+.form-input-chase.input-error:focus {
+  border-bottom-color: var(--color-chase-error);
+}
+
+/* ── Smooth transitions ── */
+* {
+  transition-property: color, background-color, border-color, opacity;
+  transition-duration: 0.15s;
+  transition-timing-function: ease;
+}
+
+/* Reset transition on animations to avoid conflicts */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.animate-chase-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* ── Checkbox styling ── */
+input[type="checkbox"] {
+  accent-color: var(--color-chase-blue-text);
+}

